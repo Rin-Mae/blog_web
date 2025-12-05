@@ -1,0 +1,1117 @@
+@use "sass:color";
+
+$primary-color: #fc9d44;
+$secondary-color: #bf946b;
+$text-color: #333333;
+
+// Additional color variables for maintainability
+$brand-blue: #223d7b;
+$accent-color: #f1a043;
+$muted-gray: #6c757d;
+$bg-light: #fafafa;
+$bootstrap-primary: #0d6efd;
+$neutral-light: #e5e7eb;
+$choose-bg: #778cb7;
+
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Stack+Sans+Headline:wght@200..700&display=swap");
+
+body {
+  font-family: "Quicksand", sans-serif;
+  color: $text-color;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Quicksand", sans-serif;
+  color: $primary-color;
+}
+
+h1 {
+  font-size: 4.5em;
+}
+
+h2 {
+  font-size: 3.5em;
+}
+
+h3 {
+  font-size: 2.5em;
+}
+
+h4 {
+  font-size: 1.5em;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 4px 8px -6px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  nav {
+    .nav-link {
+      font-size: 1em;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-left: 20px;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+}
+
+/* Hero slogan styling */
+.slogan {
+  line-height: 1;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  .slogan-word {
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+  .slogan-initial {
+    color: $brand-blue;
+    font-weight: 700;
+  }
+}
+
+.quote {
+  margin-top: 0.5rem;
+}
+
+/* Brand name styling in navbar to match slogan initials */
+.logo .brand {
+  font-weight: 500;
+  font-size: 1.25em;
+}
+.logo .brand-initial {
+  color: $brand-blue;
+  font-weight: 700;
+  margin-right: 0.05em;
+}
+.logo .brand-rest {
+  color: $accent-color;
+  font-weight: 600;
+}
+
+/* Match the sidebar brand colors to the header brand */
+.sidebar-header .brand-initial {
+  color: $brand-blue;
+  font-weight: 700;
+  margin-right: 0.05em;
+}
+.sidebar-header .brand-rest {
+  color: $accent-color;
+  font-weight: 600;
+}
+
+/* Header CTA button shown when hero is out of view */
+.header-cta .btn {
+  padding: 0.45rem 0.9rem;
+  font-weight: 600;
+}
+
+/* Orange CTA button used in hero and header */
+.btn-cta {
+  background-color: $accent-color;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.btn-cta:hover,
+.btn-cta:focus {
+  background-color: color.adjust($accent-color, $lightness: -8%);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Make each main section fill the viewport so only one is fully visible */
+// section {
+//   min-height: 100vh;
+//   display: block;
+//   align-items: center;
+// }
+
+/* Sidebar styles */
+.sidebar-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+}
+.sidebar-toggle .bar {
+  display: block;
+  height: 2px;
+  width: 20px;
+  background: $brand-blue;
+  margin: 3px 0;
+}
+
+.admin-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  background: #ffffff;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+  transform: translateX(-110%);
+  transition: transform 240ms ease-in-out;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.admin-sidebar.open {
+  transform: translateX(0);
+}
+/* On desktop only: when the admin sidebar is open, push the page main content right to avoid overlap */
+@media (min-width: 992px) {
+  .admin-sidebar.open ~ main {
+    margin-left: 260px;
+    transition: margin-left 240ms ease-in-out;
+  }
+}
+
+/* When sidebar is present site-wide, shift header/main/footer so logo and name remain visible */
+.admin-sidebar-open header.site-header, .admin-sidebar-open header.admin-header {
+    z-index: 1100;
+    position: sticky;
+    top: 0;
+}
+@media (min-width: 992px) {
+  .admin-sidebar-open header.site-header, .admin-sidebar-open header.admin-header {
+    margin-left: 260px;
+    transition: margin-left 240ms ease-in-out;
+  }
+  .admin-sidebar-open main {
+    margin-left: 260px;
+    transition: margin-left 240ms ease-in-out;
+  }
+  .admin-sidebar-open footer.admin-footer, .admin-sidebar-open #site-footer {
+    margin-left: 260px;
+    transition: margin-left 240ms ease-in-out;
+  }
+}
+
+/* Blogger sidebar uses the same layout rules as the admin sidebar */
+.blogger-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    background: #ffffff;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    transform: translateX(-110%);
+    transition: transform 240ms ease-in-out;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.blogger-sidebar.open {
+    transform: translateX(0);
+}
+/* keep default behavior: only desktop pushes content; mobile overlays */
+@media (min-width: 992px) {
+  .blogger-sidebar.open ~ main {
+    margin-left: 260px;
+    transition: margin-left 240ms ease-in-out;
+  }
+}
+.blogger-sidebar-open header.site-header, .blogger-sidebar-open header.admin-header {
+    margin-left: 260px;
+    transition: margin-left 240ms ease-in-out;
+    z-index: 1100;
+    position: sticky;
+    top: 0;
+}
+.blogger-sidebar-open main {
+    margin-left: 260px;
+    transition: margin-left 240ms ease-in-out;
+}
+.blogger-sidebar-open footer.admin-footer, .blogger-sidebar-open #site-footer {
+    margin-left: 260px;
+    transition: margin-left 240ms ease-in-out;
+}
+
+/* Disable animations for header and sidebar as requested */
+.site-header,
+header.site-header,
+header.admin-header,
+.admin-sidebar,
+.admin-sidebar.open,
+.blogger-sidebar,
+.blogger-sidebar.open,
+.admin-sidebar-open header.site-header,
+.blogger-sidebar-open header.site-header,
+.admin-sidebar-open main,
+.blogger-sidebar-open main,
+.admin-sidebar-open footer.admin-footer,
+.blogger-sidebar-open footer.admin-footer {
+    transition: none !important;
+}
+
+/* Remove sidebar button hover transforms and transitions */
+.sidebar-btn,
+.sidebar-btn:hover,
+.sidebar-btn:focus,
+.sidebar-btn:active {
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove backdrop fade animation */
+.sidebar-backdrop,
+.sidebar-backdrop.visible {
+    transition: none !important;
+}
+
+/* Disable the transition during initial class application to avoid the
+   header/main/footer sliding visibly on refresh. The Sidebar component
+   adds the `no-admin-transitions` class briefly on mount. */
+.no-admin-transitions header.site-header,
+.no-admin-transitions header.admin-header,
+.no-admin-transitions main,
+.no-admin-transitions footer.admin-footer,
+.no-admin-transitions #site-footer,
+.no-admin-transitions .admin-sidebar.open ~ main {
+    transition: none !important;
+}
+
+/* Ensure header elements don't get hidden under the sidebar on wide screens */
+.admin-sidebar-open header.site-header .logo,
+.admin-sidebar-open header.site-header .brand,
+.admin-sidebar-open header.site-header .brand-initial,
+.admin-sidebar-open header.site-header .brand-rest {
+    z-index: 1100;
+}
+.sidebar-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.sidebar-nav {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+.sidebar-nav a {
+    display: block;
+    padding: 0.5rem 0;
+    color: $brand-blue;
+    text-decoration: none;
+}
+
+/* Larger, semantic headings for sidebar items */
+.sidebar-nav .sidebar-heading {
+    margin: 0 0 0.6rem 0;
+    font-size: 1.125rem; /* ~18px */
+    font-weight: 600;
+    line-height: 1.2;
+}
+.sidebar-nav .sidebar-heading a {
+    color: $brand-blue;
+    text-decoration: none;
+}
+.sidebar-nav .sidebar-heading a:hover,
+.sidebar-nav .sidebar-heading a:focus {
+    text-decoration: underline;
+    color: color.adjust($brand-blue, $lightness: -8%);
+}
+
+/* Sidebar buttons styling */
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.4rem 0.25rem;
+  background: transparent;
+  border: none;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: $brand-blue;
+  cursor: pointer;
+  transition: background-color 200ms cubic-bezier(.2,.9,.2,1), color 160ms ease, box-shadow 220ms cubic-bezier(.2,.9,.2,1), transform 140ms ease, border-left-color 160ms ease;
+  border-left: 3px solid transparent;
+  padding-left: 0.6rem; /* space for left accent when it appears */
+  border-radius: 10px; /* soft rounded corners */
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+.sidebar-btn:focus {
+  outline: none;
+  text-decoration: underline;
+}
+.sidebar-btn:hover {
+  color: color.adjust($brand-blue, $lightness: -8%);
+}
+.sidebar-btn:hover,
+.sidebar-btn:focus {
+  background: $brand-blue; /* primary dark blue */
+  color: #ffffff;
+  border-left-color: $accent-color; /* accent (orange) */
+  box-shadow: 0 10px 30px rgba(34,61,123,0.05); /* softer, larger blur */
+  transform: translateX(2px);
+  border-radius: 12px; /* slightly more rounded on hover for softness */
+}
+.sidebar-btn:active {
+  transform: translateX(1px) scale(0.995);
+}
+
+/* Show an active state for the current page (add aria-current="true" when active) */
+.sidebar-btn[aria-current="true"] {
+    background: $brand-blue;
+    color: #fff;
+    border-left-color: $accent-color;
+    box-shadow: 0 8px 22px rgba(34,61,123,0.05);
+}
+.sidebar-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease-in-out, background 180ms ease-in-out;
+  z-index: 1090;
+}
+.sidebar-backdrop.visible {
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Sidebar tools (post tools) should only be sticky on large screens to avoid
+   overlapping/squeezing content on mobile. */
+@media (min-width: 992px) {
+  .sidebar-tools {
+    position: sticky;
+    top: 20px;
+  }
+}
+
+/* Keep hero container vertically centered only for hero */
+/* other sections should keep normal flow so their titles remain at the top */
+
+/* Reduce extra vertical padding on very small screens to avoid overflow */
+@media (max-height: 600px) {
+  section {
+    min-height: 600px;
+  }
+}
+
+/* Hero background placed in SCSS so image and overlay are handled via CSS */
+.hero-section {
+  background-image: url("../images/hero.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+/* Center content inside hero column */
+
+/* Header search icon inside input */
+.header-search {
+  display: inline-block;
+}
+.header-search .search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $muted-gray;
+  pointer-events: none;
+  font-size: 1.05rem;
+}
+
+/* Center the logo on small screens without affecting the left-side burger
+   toggle. Use absolute centering only on < lg so desktop stays unchanged. */
+@media (max-width: 991.98px) {
+  .site-header .container,
+  .site-header .container-fluid {
+    position: relative; /* establish positioning context for absolute brand */
+  }
+
+  .site-header .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1200; /* above the burger */
+    margin: 0; /* remove any auto margins that could shift it */
+    pointer-events: none; /* allow clicks to pass through to burger on left */
+  }
+
+  /* Keep interactive elements inside the brand clickable (links) */
+  .site-header .logo a,
+  .site-header .logo img,
+  .site-header .logo .brand {
+    pointer-events: auto;
+  }
+}
+.header-search .form-control {
+  padding-left: 36px;
+}
+
+/* Admin posts list search icon inside input */
+.admin-search {
+  display: block;
+}
+.admin-search .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $muted-gray;
+  pointer-events: none;
+  font-size: 1rem;
+}
+.admin-search .form-control {
+  padding-left: 36px;
+}
+
+/* Page-level search (blog list, search results) */
+.page-search {
+  margin-bottom: 1rem;
+}
+.page-search .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $muted-gray;
+  pointer-events: none;
+  font-size: 1rem;
+}
+.page-search .form-control {
+  padding-left: 36px;
+}
+
+.hero-section > .container {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+.hero-section .row {
+  width: 100%;
+}
+.hero-section .col-md-7 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Audience split cards */
+.audience-card {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.audience-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+.audience-card .card-title {
+  color: $brand-blue;
+  margin-bottom: 0.75rem;
+}
+.audience-card .card-text {
+  color: #333;
+}
+
+/* Feature cards styling */
+.feature-card {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+.feature-card .card-title {
+  color: $brand-blue;
+  margin-bottom: 0.6rem;
+}
+
+/* Background for Platform Features section */
+#features {
+  background-color: $brand-blue;
+  color: #ffffff;
+}
+
+#features h2,
+#features p.text-center {
+  color: #ffffff;
+}
+
+/* Keep feature cards white for contrast on the dark background */
+#features .feature-card {
+  background: #ffffff;
+}
+
+#features .feature-card .card-title {
+  color: $brand-blue;
+}
+
+#features .feature-card .card-text {
+  color: #333333;
+}
+
+/* Background and contrast for Choose Your Path section */
+#choose-your-path {
+  background-color: $choose-bg;
+  color: #ffffff;
+}
+
+#choose-your-path h2,
+#choose-your-path p.text-center {
+  color: #ffffff;
+}
+
+/* Keep cards white for contrast against the blue background */
+#choose-your-path .audience-card {
+  background: #ffffff;
+}
+
+/* Ensure card text is readable on white cards */
+#choose-your-path .audience-card .card-text {
+  color: #333333;
+}
+
+/* Adjust Browse Blogs outline button to be visible on white card */
+#choose-your-path .btn-outline-primary {
+  color: $brand-blue;
+  border-color: rgba(34, 61, 123, 0.15);
+}
+
+/* Make Latest Posts match Choose Your Path background */
+#latest-trending {
+  background-color: $choose-bg;
+  color: #ffffff;
+}
+
+#latest-trending h2,
+#latest-trending p.text-center {
+  color: #ffffff;
+}
+
+/* Make list items white cards for contrast on the blue background */
+#latest-trending .list-group .list-group-item {
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 0.5rem;
+}
+
+#latest-trending .col-md-4 h5,
+#latest-trending .col-md-4 ul li {
+  color: #ffffff;
+}
+
+/* Make Categories match Platform Features background */
+#categories {
+  background-color: $brand-blue;
+  color: #ffffff;
+}
+
+#categories h2,
+#categories p.text-center {
+  color: #ffffff;
+}
+
+/* Render category badges as white with primary-colored text on dark background */
+#categories .badge {
+  background: #ffffff;
+  color: $brand-blue;
+}
+
+/* Center section titles at the top of each section */
+section > .container h2,
+section > .container > .section-title {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  /* more space between the top of the section and its title */
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  /* slightly smaller top gap on narrow screens */
+  section > .container h2,
+  section > .container > .section-title {
+    margin-top: 2rem;
+  }
+}
+
+/* Site footer styles */
+#site-footer {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  color: #333333;
+}
+
+#site-footer .brand-initial {
+  color: $brand-blue;
+  font-weight: 700;
+}
+
+#site-footer .brand-rest {
+  color: $accent-color;
+  font-weight: 600;
+  margin-left: 0.05em;
+}
+
+#site-footer .brand {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+#site-footer .copyright {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 576px) {
+  #site-footer .container {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+/* Signup section styles */
+
+/* Create account section styles - dedicated page, white/clean look */
+#create-account {
+    background: #ffffff;
+    color: #333333;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+}
+
+#create-account h2 {
+    color: $brand-blue;
+    font-weight: 700;
+}
+
+/* Make the card cleaner and centered */
+#create-account .card {
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* Inputs: subtle background, clear borders */
+#create-account .signup-form .form-control {
+    min-height: 44px;
+    border-radius: 6px;
+    box-shadow: none;
+    border: 1px solid rgba(34,61,123,0.08);
+    background: $bg-light;
+    color: #333333;
+}
+
+#create-account .signup-form .form-select {
+    min-height: 44px;
+    border-radius: 6px;
+}
+
+#create-account .signup-form .btn-cta {
+    padding: 0.55rem 1rem;
+}
+
+#create-account .form-text {
+    color: rgba(0,0,0,0.6);
+}
+
+@media (max-width: 576px) {
+  #create-account .signup-form .row {
+    gap: 0.5rem;
+  }
+}
+
+/* Login page styles */
+.auth-page {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+}
+
+.auth-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.auth-brand .brand-initial {
+  color: $brand-blue;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.auth-brand .brand-rest {
+  color: $accent-color;
+  font-weight: 700;
+  margin-left: 0.15rem;
+}
+
+@media (max-width: 576px) {
+  .auth-page {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+// React Paginate Styles
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 4px;
+  align-items: center;
+
+  .page-item {
+    &.disabled {
+      .page-link {
+        cursor: not-allowed;
+        background: $neutral-light;
+        color: #9ca3af;
+        border-color: $neutral-light;
+      }
+    }
+
+    &.active {
+      .page-link {
+        background: $primary-color;
+        color: #fff;
+        border-color: $primary-color;
+      }
+    }
+
+    .page-link {
+      padding: 6px 12px;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #fff;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.2s;
+
+      &:hover:not(.disabled) {
+        background: color.adjust($primary-color, $lightness: 40%);
+        border-color: $primary-color;
+      }
+    }
+  }
+
+  .break-me {
+    cursor: default;
+  }
+}
+
+
+
+
+// Blog Card Hover Styles
+.blog-hover,
+.most-viewed-hover,
+.blog-card-hover {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden; // ensures image doesn't overflow on zoom
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    h6,
+    .blog-title-hover {
+      transition: color 0.3s ease;
+      color: $bootstrap-primary; // Bootstrap primary
+    }
+
+    img {
+      transform: scale(1.05); // subtle zoom
+    }
+  }
+
+  h6,
+  .blog-title-hover {
+    transition: color 0.3s ease;
+  }
+
+  img {
+    transition: transform 0.3s ease; // smooth zoom
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Responsive tweaks: use Bootstrap grid where possible and adjust for small screens */
+@media (max-width: 991.98px) {
+  /* Prevent sidebar from pushing content on narrow screens */
+  .admin-sidebar-open header.site-header,
+  .admin-sidebar-open main,
+  .admin-sidebar-open footer.admin-footer,
+  .blogger-sidebar-open header.site-header,
+  .blogger-sidebar-open main,
+  .blogger-sidebar-open footer.admin-footer {
+    margin-left: 0 !important;
+  }
+
+  /* Ensure sidebar overlays content instead of shifting it */
+  .admin-sidebar,
+  .blogger-sidebar {
+    width: 260px;
+    transform: translateX(-110%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1100;
+  }
+  .admin-sidebar.open,
+  .blogger-sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Show backdrop when sidebar is open - backdrop element exists in markup */
+  .sidebar-backdrop {
+    display: block;
+  }
+  .sidebar-backdrop.visible {
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Make blog cards full-width in smaller viewports (rely on bootstrap cols too) */
+  .blog-card,
+  .card {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Make images more flexible on mobile: don't force large heights */
+  .blog-card img,
+  .most-viewed-hover img,
+  .card-img-top {
+    height: auto !important;
+    object-fit: cover;
+  }
+
+  /* Slightly increase touch target sizes for small screens */
+  .btn.btn-sm {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  /* Headings scale down */
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.25rem; }
+}
+
+@media (max-width: 575.98px) {
+  /* Tighten containers and inputs on extra small screens */
+  .container-fluid,
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .input-group[style] {
+    width: 100% !important;
+  }
+
+  /* Stack action buttons into a row with spacing */
+  .position-absolute.bottom-0.end-0.m-3.d-flex.gap-2 {
+    position: static !important;
+    margin: 0.5rem 0 0 0 !important;
+    justify-content: flex-end;
+  }
+
+  /* Ensure spacer for eye badge doesn't collide */
+  .position-absolute.bottom-0.start-0.m-3 {
+    position: static !important;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Keep toast container readable on mobile */
+.Toastify__toast-container {
+  padding: 0.25rem;
+}
+
+/* Ensure modals / confirmations (built-in confirm used) keep default behavior */
+
+
+// Mobile Public Sidebar Styles
+
+/* TipTap / ProseMirror editor responsive rules */
+.editor-container {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.prosemirror-editor,
+.ProseMirror {
+  min-height: 240px;
+  max-width: 100%;
+  white-space: normal; /* allow text wrapping */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+.ProseMirror img,
+.prosemirror-editor img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Allow code/pre to wrap safely but keep whitespace for code blocks; fallback to scroll when needed */
+.ProseMirror pre,
+.ProseMirror code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* On small screens constrain the editor height so the page doesn't grow indefinitely; editor scrolls internally */
+@media (max-width: 991.98px) {
+  .editor-container {
+    max-height: calc(100vh - 300px);
+    overflow: auto;
+  }
+}
+
+
+.public-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease-in-out;
+}
+
+.public-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 260px; /* match blogger/sidebar width */
+  max-width: 85%;
+  background: #fff;
+  z-index: 99999; /* ensure sidebar is above everything */
+  padding: 1rem;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+  transform: translateX(-110%);
+  transition: transform 240ms ease-in-out;
+}
+
+.public-sidebar .btn-close {
+  border: 0;
+  background: transparent;
+}
+
+/* Prevent body scrolling while sidebar is open */
+.mobile-sidebar-open body {
+
+/* Blog content fallback wrapping to protect against long words/URLs
+   Use Bootstrap utilities where possible; these rules are fallbacks. */
+.blog-content {
+  white-space: normal; /* allow normal wrapping */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Fallback helper for long blog titles in cards/lists */
+.blog-title-break {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+  overflow: hidden;
+}
+
+/* Force header behind the sidebar when open */
+.mobile-sidebar-open .site-header {
+  z-index: 1 !important;
+}
+
+/* Ensure the centered logo (which has a high z-index on small screens) is behind the sidebar when mobile menu is open */
+.mobile-sidebar-open .site-header .logo {
+  z-index: 0 !important;
+  pointer-events: none;
+}
+
+/* Small adjustments for links inside the sidebar */
+.public-sidebar .btn-link {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+.public-sidebar .btn-cta {
+  display: inline-block;
+  padding: 0.45rem 0.75rem;
+}
+
+/* Open states for sidebar and overlay */
+.public-sidebar.open {
+  transform: translateX(0);
+}
+.public-sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Small helper utilities: use Bootstrap where available; provide safe fallbacks */
+.text-justify {
+  text-align: justify !important;
+}
+
+/* Ensure long words/URLs break on constrained containers when Bootstrap utilities
+   are not sufficient or on older browsers */
+.text-wrap {
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+.text-break {
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
